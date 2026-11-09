@@ -5,3 +5,5 @@ dist/
 !.env.example
 logs/
 "@ | Set-Content .gitignore -Encoding ascii
+**/uploads/*
+!**/uploads/.gitkeep
