@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import {MiddlewareConsumer, Module,NestModule,} from '@nestjs/common'
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { ConvidadosController } from './convidados/convidados.controller.js';
@@ -7,11 +7,20 @@ import { LivrosController } from './livros/livros.controller.js';
 import { LivrosService } from './livros/livros.service.js';
 import { MediaController } from './media/media.controller.js';
 import { SegurancaController } from './seguranca/seguranca.controller.js';
-//import { DemoController } from './demo/demo.controller.js';
+import { AdminController } from './admin/admin.controller.js';
+import { LoggerMiddleware } from './logger/logger.middleware.js';
+
 
 @Module({
-imports: [],
-controllers: [AppController, ConvidadosController, LivrosController, MediaController, SegurancaController], //DemoController
-providers: [AppService, ConvidadosService, LivrosService],
-})
-export class AppModule {}
+    imports: [],
+    controllers: [ AppController, ConvidadosController, LivrosController, MediaController, SegurancaController,AdminController,]
+    , providers: [ AppService, ConvidadosService,LivrosService,
+],})
+
+
+export class AppModule implements NestModule {
+    configure(consumer: MiddlewareConsumer) {
+        // Aplicado a todas as rotas da aplicação.
+        consumer.apply(LoggerMiddleware).forRoutes('*');
+    }
+}
