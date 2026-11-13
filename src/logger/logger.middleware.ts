@@ -10,7 +10,7 @@ export class LoggerMiddleware implements NestMiddleware {
     if (req.originalUrl.startsWith('/admin')) {
       const role = req.headers['x-user-role'];
       if (role !== CARGO_LIBERADO) {
-        res.status(403).json({ message: 'Acesso Negado' });
+        res.status(403).json({ message: 'Acesso Negado, mas se for para voce pode.' });
 
         return;
       }

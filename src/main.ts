@@ -2,11 +2,18 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import { AppModule } from './app.module.js';
+
+import { AllExceptionsFilter } from './filtros/http-exception.filter.js';
+
+
+
+
 async function bootstrap() {
 const app =
 await NestFactory.create<NestExpressApplication>(
-AppModule,
+AppModule, 
 );
+app.useGlobalFilters(new AllExceptionsFilter());
 // Serve os arquivos salvos em ./uploads diretamente via HTTP.
 app.useStaticAssets(
 join(import.meta.dirname, '..', 'uploads'),
