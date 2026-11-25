@@ -17,4 +17,12 @@ describe('ProdutosController', () => {
   it('buscarPorId deve devolver o produto', () => {
     expect(controller.buscarPorId('2').nome).toBe('Mouse');
   });
+  it('criar deve devolver o produto com ID', () => {
+    const criado = controller.criar({
+      nome: 'Arroz 5kg',
+      preco: 25.9,
+    });
+    expect(criado.id).toBe(4);
+    expect(criado.nome).toBe('Arroz 5kg');
+  });
 });
